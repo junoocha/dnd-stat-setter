@@ -4,6 +4,11 @@ const introSentence = [ // sentence that shows when opening site
     'Ah ****... back at it again'
 ];
 
+const introCharacter = [ // sentence prompting for name of character
+    "Well let's get to it... what's your character's name...",
+    "What is the name of your new character?",
+]
+
 const chracterSentence = [ // sentence that shows after entering the name of a character and class
     'How interesting...',
     'I think I met someone with that name before... eh whatever...'
@@ -85,4 +90,10 @@ function displaySentence(array) {
         } 
     }
     setTimeout(showNextWord, 1000);
+}
+
+function startSequence() {
+    displaySentence(introSentence);
+    displaySentence(introCharacter);
+    
 }
