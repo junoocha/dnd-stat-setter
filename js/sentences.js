@@ -106,7 +106,7 @@ function displaySentence(array, callback) {
                 textBox.style.opacity -= 0.01; // Decrease opacity by 0.01
             } else {
                 clearInterval(fadeOutInterval); // Stop fading out when opacity reaches 0
-                setTimeout(callback, 2000); // Wait 2 seconds before transitioning
+                setTimeout(callback, 1500); // Wait 1.5 seconds before transitioning
             }
         }, 10); // Run every 10 milliseconds for smoother animation
     }
