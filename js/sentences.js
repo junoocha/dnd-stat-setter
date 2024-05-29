@@ -1,7 +1,7 @@
 const introSentence = [ // sentence that shows when opening site
     'Welcome back traveller... here to make another character?',
     'Ha ha ha... welcome back... are you here to make another pawn?',
-    'Ah ****... back at it again'
+    'Ah ****... here we go again...'
 ];
 
 const introCharacter = [ // sentence prompting for name of character
@@ -65,33 +65,41 @@ function getRandomSentence(array) {
 function displaySentence(array, callback) {
     const textBox = document.getElementById('text-box');
     const sentence = getRandomSentence(array);
-    const words = sentence.split(' ');
+    const characters = sentence.split('');
     textBox.style.opacity = 0;
     textBox.innerText = ''; // clear previous text
 
-    let wordIndex = 0;
+    console.log(characters);
+
+    let charIndex = 0;
 
     // function that displays each word separately
-    function showNextWord() {
+    function showNextCharacter() {
 
-        // Adding each word to textbox
-        if (wordIndex < words.length) {
-            const word = words[wordIndex];
-            textBox.innerText += (wordIndex === 0 ? '' : ' ') + word;
+        if (charIndex < characters.length) {
+            const char = characters[charIndex];
+            console.log(char)
+            // Append the character to the textbox
+            textBox.innerHTML += (char === ' ' ? '&nbsp;' : char);
             textBox.style.opacity = 1;
 
-            // Determine the delay before showing the next word
-            let delay = (word === '...' ? 1000 : 500); 
+            // Determine the delay before showing the next character
+            let delay;
+            if (char === '.' || char === '?') {
+                delay = 500; // Longer pause after a period
+            } else {
+                delay = 125; // Default delay for other characters
+            }
 
-            // Move to next and show next word based on delay
-            wordIndex++;
-            setTimeout(showNextWord, delay);
+            // Move to next character and show based on delay
+            charIndex++;
+            setTimeout(showNextCharacter, delay);
         } else {
             // Call the callback function after the sentence is displayed
             setTimeout(callback, 2000); // Wait 2 seconds before transitioning
         }
     }
-    setTimeout(showNextWord, 1000);
+    setTimeout(showNextCharacter, 1000);
 }
 
 // Sequence of sentences to display
