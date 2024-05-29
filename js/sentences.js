@@ -6,6 +6,7 @@ const introSentence = [ // sentence that shows when opening site
 
 const chracterSentence = [ // sentence that shows after entering the name of a character and class
     'How interesting...',
+    'I think I met someone with that name before... eh whatever...'
 ];
 
 const choiceSentence = [ // prompt user for how they want to make their character
@@ -45,7 +46,7 @@ const createdSentences = [  // set of sentences that shows after all the points 
     "Well done on making your character"
 ];
 
-const finalSentence = [
+const finalSentence = [ // final sentence before revealing character
     "Here is your character..."
 ];
 
