@@ -69,7 +69,6 @@ function displaySentence(array, callback) {
     textBox.style.opacity = 0;
     textBox.innerText = ''; // clear previous text
 
-    console.log(characters);
 
     let charIndex = 0;
 
@@ -78,7 +77,6 @@ function displaySentence(array, callback) {
 
         if (charIndex < characters.length) {
             const char = characters[charIndex];
-            console.log(char)
             // Append the character to the textbox
             textBox.innerHTML += (char === ' ' ? '&nbsp;' : char);
             textBox.style.opacity = 1;
@@ -95,11 +93,23 @@ function displaySentence(array, callback) {
             charIndex++;
             setTimeout(showNextCharacter, delay);
         } else {
-            // Call the callback function after the sentence is displayed
-            setTimeout(callback, 2000); // Wait 2 seconds before transitioning
+            // Start fading out after the sentence is fully displayed
+            fadeOut();
         }
     }
     setTimeout(showNextCharacter, 1000);
+
+    // Function to gradually decrease the opacity (fade out)
+    function fadeOut() {
+        const fadeOutInterval = setInterval(function() {
+            if (textBox.style.opacity > 0) {
+                textBox.style.opacity -= 0.01; // Decrease opacity by 0.01
+            } else {
+                clearInterval(fadeOutInterval); // Stop fading out when opacity reaches 0
+                setTimeout(callback, 2000); // Wait 2 seconds before transitioning
+            }
+        }, 10); // Run every 10 milliseconds for smoother animation
+    }
 }
 
 // Sequence of sentences to display
