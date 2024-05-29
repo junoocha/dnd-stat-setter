@@ -9,7 +9,7 @@ const introCharacter = [ // sentence prompting for name of character
     "What is the name of your new character?",
 ]
 
-const chracterSentence = [ // sentence that shows after entering the name of a character and class
+const characterSentence = [ // sentence that shows after entering the name of a character and class
     'How interesting...',
     'I think I met someone with that name before... eh whatever...'
 ];
@@ -27,7 +27,7 @@ const lowRollSentence = [ // sentence that shows after specific condition but lo
     'Damn okay... uh... unlucky I guess...'
 ];
 
-const highRollSenetence = [ // sentence that shows after rolling high
+const highRollSentence = [ // sentence that shows after rolling high
     'DAMN OKAY... I mean... uh... well done traveller...'
 ];
 
@@ -62,7 +62,7 @@ function getRandomSentence(array) {
 }
 
 // function that displays the sentence from array word by word
-function displaySentence(array) {
+function displaySentence(array, callback) {
     const textBox = document.getElementById('text-box');
     const sentence = getRandomSentence(array);
     const words = sentence.split(' ');
@@ -86,14 +86,44 @@ function displaySentence(array) {
             // Move to next and show next word based on delay
             wordIndex++;
             setTimeout(showNextWord, delay);
-
-        } 
+        } else {
+            // Call the callback function after the sentence is displayed
+            setTimeout(callback, 2000); // Wait 2 seconds before transitioning
+        }
     }
     setTimeout(showNextWord, 1000);
 }
 
+// Sequence of sentences to display
+const sentenceSequence = [
+    introSentence,
+    introCharacter,
+    characterSentence,
+    choiceSentence,
+    rollSentence,
+    lowRollSentence,
+    highRollSentence,
+    pointSentence,
+    balancedSentence,
+    extremeSentence,
+    standardSentence,
+    createdSentences,
+    finalSentence
+];
+
+// Function to start the sequence of displaying sentences
 function startSequence() {
-    displaySentence(introSentence);
-    displaySentence(introCharacter);
-    
+    let index = 0;
+
+    function next() {
+        if (index < sentenceSequence.length) {
+            displaySentence(sentenceSequence[index], next);
+            index++;
+        }
+    }
+
+    next(); // Start the sequence
 }
+
+// Event listener to load start Sequence
+document.addEventListener('DOMContentLoaded', startSequence);
